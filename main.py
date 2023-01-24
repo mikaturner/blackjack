@@ -9,13 +9,12 @@
 ## Use the following list as the deck of cards:
 ## cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
-#I'm ignoring the above list of cards and creating a dictionary with keys that are prettier :-)
+#I'm ignoring the above list of cards and creating a tuple list with cards and values because it's prettier :-)
 
 ## The cards in the list have equal probability of being drawn.
 ## Cards are not removed from the deck as they are drawn.
 ## The computer is the dealer.
 import random
-
 inf_deck = [
   ("A☘️", 11),
   ("2☘️", 2),
@@ -29,42 +28,42 @@ inf_deck = [
   ("J☘️", 10),
   ("Q☘️", 10),
   ("K☘️", 10),
-  "A♦️": 11,
-  "2♦️": 2,
-  "3♦️": 3,
-  "4♦️": 4,
-  "5♦️": 5,
-  "6♦️": 6,
-  "7♦️": 7,
-  "8♦️": 8,
-  "9♦️": 9,
-  "J♦️": 10,
-  "Q♦️": 10,
-  "K♦️": 10,
-  "A♠": 11,
-  "2♠": 2,
-  "3♠": 3,
-  "4♠": 4,
-  "5♠": 5,
-  "6♠": 6,
-  "7♠": 7,
-  "8♠": 8,
-  "9♠": 9,
-  "J♠": 10,
-  "Q♠": 10,
-  "K♠": 10,
-  "A❤️": 11,
-  "2❤️": 2,
-  "3❤️": 3,
-  "4❤️": 4,
-  "5❤️": 5,
-  "6❤️": 6,
-  "7❤️": 7,
-  "8❤️": 8,
-  "9❤️": 9,
-  "J❤️": 10,
-  "Q❤️": 10,
-  "K❤️": 10,
+  ("A♦️", 11),
+  ("2♦️", 2),
+  ("3♦️", 3),
+  ("4♦️", 4),
+  ("5♦️", 5),
+  ("6♦️", 6),
+  ("7♦️", 7),
+  ("8♦️", 8),
+  ("9♦️", 9),
+  ("J♦️", 10),
+  ("Q♦️", 10),
+  ("K♦️", 10),
+  ("A♠", 11),
+  ("2♠", 2),
+  ("3♠", 3),
+  ("4♠", 4),
+  ("5♠", 5),
+  ("6♠", 6),
+  ("7♠", 7),
+  ("8♠", 8),
+  ("9♠", 9),
+  ("J♠", 10),
+  ("Q♠", 10),
+  ("K♠", 10),
+  ("A❤️", 11),
+  ("2❤️", 2),
+  ("3❤️", 3),
+  ("4❤️", 4),
+  ("5❤️", 5),
+  ("6❤️", 6),
+  ("7❤️", 7),
+  ("8❤️", 8),
+  ("9❤️", 9),
+  ("J❤️", 10),
+  ("Q❤️", 10),
+  ("K❤️", 10),
 ]
 
 player_hand = []
@@ -73,32 +72,39 @@ player_total = 0
 dealer_hand = []
 dealer_total= 0
 
-#populate player initial hand
-def initial_hand():
-  '''Populates player and computers initial hands'''
-  player_hand = random.sample(inf_deck_dict.items(), 2)
-  print(player_hand) 
+#Pull a random card from deck
+def random_card(num_cards):
+    '''Function takes input of player or dealer hand list to add card to and number of cards to add'''
+    new_cards = random.sample(inf_deck, num_cards)
+    return new_cards
 
-  dealer_hand = random.sample(inf_deck_dict.items(), 2)
-  print(dealer_hand)
-  
-  first_plr_card = (player_hand[0])[0]
-  second_plr_card = (player_hand[1])[0]
-  def player_total():
-    for each in player_hand:
-      #work on player hand 2nd item addition tomorrow
-  first_dlr_card = (dealer_hand[0])[0]
-  second_dlr_card = (dealer_hand[1])[0]
-  
-  print(first_plr_card)
-  print(second_plr_card)
-  print(first_dlr_card)
-  print(second_dlr_card)
-initial_hand()
+#Function for summing values of hands
+def hand_total(hand):
+    '''Function takes dealer or player hand, and associated total and adds together card values and returns it to player_total or dealer_total'''
+    total = 0
+    for card in hand:  
+        total += card[1]
+    return total
 
+#populate player's initial hand
+player_hand = random_card(2)
+player_total = hand_total(player_hand)
 
-#print(len(inf_deck_dict)), Deck length is 48
+#populate dealer's initial hand
+dealer_hand = random_card(2)
+dealer_total = hand_total(dealer_hand)
 
+#How to pull values out of tuple list for each hand  
+
+first_plr_card = (player_hand[0])[0]
+second_plr_card = (player_hand[1])[0]
+
+first_dlr_card = (dealer_hand[0])[0]
+second_dlr_card = (dealer_hand[1])[0]
+
+print(f"Your hand is {first_plr_card} + {second_plr_card} for a total of {player_total}")
+
+#print(f"Dealer's first card is {first_dlr_card}")
 
 
 #Black Jack Game Logic
@@ -106,9 +112,18 @@ initial_hand()
 #1 Check if Player initial hand == 21
   #If yes then check if dealer additional one card hand equals 21
     #Tie 
+#if pt == 21 & dt == 21:
+# print("It's a Tie!")
   #Elif Player hand == 21 and dealer hand <21 or >21 
     #Player Wins
-#2 if player hand is < 21 ask player if they want another card (add this card to total)
+#elif pt == 21 and (dt < 21 or dt > 21):
+ # print("You Win!")
+
+#2 if player hand is < 21 ask player if they want another card (add this card to total)  
+#elif pt < 21:
+  #another_card = input("Do you want another card? 'y'or'n': ")
+  
+
     #If total is >21 player Busts and Dealer Wins
     #If player hand is <21 ask if they want another card and repeat  step two logic if they do want another card
     #Elif if player hand is < 21 and they hold move on to dealer Hand
