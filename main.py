@@ -102,27 +102,41 @@ second_plr_card = (player_hand[1])[0]
 first_dlr_card = (dealer_hand[0])[0]
 second_dlr_card = (dealer_hand[1])[0]
 
-print(f"Your hand is {first_plr_card} + {second_plr_card} for a total of {player_total}")
+def player_string(hand):
+  '''Creates a string to describe player hand depending on current cards in hand'''
+  part_1 = "Your hand is "
+  card_string = ""
+  just_cards = []
+  for card in hand:
+      just_cards.append(card[0])
+  card_string = " and ".join(just_cards)        
+  part_2 = f" for a total of {player_total}."
+  return part_1 + card_string + part_2
 
-#print(f"Dealer's first card is {first_dlr_card}")
+print(player_string(player_hand))  
+#print(f"Your hand is {first_plr_card} and {second_plr_card} for a total of {player_total}")
 
+print(f"Dealer's first card is {first_dlr_card}")
 
 #Black Jack Game Logic
 
 #1 Check if Player initial hand == 21
   #If yes then check if dealer additional one card hand equals 21
     #Tie 
-#if pt == 21 & dt == 21:
-# print("It's a Tie!")
-  #Elif Player hand == 21 and dealer hand <21 or >21 
-    #Player Wins
-#elif pt == 21 and (dt < 21 or dt > 21):
- # print("You Win!")
+if player_total == 21 & dealer_total == 21:
+    print("It's a Tie!")
 
-#2 if player hand is < 21 ask player if they want another card (add this card to total)  
-#elif pt < 21:
-  #another_card = input("Do you want another card? 'y'or'n': ")
-  
+#elif Player hand == 21 and dealer hand <21 or >21 Player Wins
+elif player_total == 21:
+    print("You Win!")
+
+#elif player hand is < 21 ask player if they want another card (add this card to total)  
+elif player_total < 21:
+    another_card = (input("Do you want another card? 'y'or'n': ")).lower()
+    if another_card == 'y':
+        new_card = random_card(1)
+        player_hand += new_card
+        hand_total(player_hand)  
 
     #If total is >21 player Busts and Dealer Wins
     #If player hand is <21 ask if they want another card and repeat  step two logic if they do want another card
